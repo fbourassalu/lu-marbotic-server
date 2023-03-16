@@ -79,7 +79,7 @@ wss.on("connection", (client, request) => {
 
     try {
       message = JSON.parse(data);
-      console.log(message);
+      console.log("RECIEVED", message);
     } catch (e) {
       sendError(client, "Wrong format");
       return;
@@ -131,7 +131,7 @@ const MarboticMessageHandler = {
       }
 
       // Is it the right anwswer?
-      let answer = answersRemaining[message.index];
+      let answer = answersRemaining[0];
       console.info("message.answer", message.answer, answer);
 
       const isAccepted = message.answer === answer;
@@ -194,7 +194,7 @@ const MarboticMessageHandler = {
 };
 
 const sendMessage = (server, type, message, deviceType, deviceId) => {
-  console.warn({ type, message, deviceType, deviceId });
+  console.log("SENT", { type, message, deviceType, deviceId });
   server.clients.forEach((client) => {
     if (
       client.readyState === WebSocket.OPEN &&
